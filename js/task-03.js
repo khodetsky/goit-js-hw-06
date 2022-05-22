@@ -14,20 +14,22 @@ const images = [
 ];
 
 const gallery = document.querySelector('.gallery');
-const imagesEl = images.forEach(image => {
-  const galleryElement = document.createElement('li');
-  const newImage = document.createElement('img');
-  newImage.classList.add('gallery__image')
-  newImage.src = image.url;
-  newImage.alt = image.alt;
-  newImage.style.width = '750px';
-  galleryElement.style.marginLeft = '200px';
-  galleryElement.style.marginBottom = '20px';
-  galleryElement.style.listStyle = 'none';
-  galleryElement.append(newImage)
-  return gallery.append(galleryElement);
-});
+const imagesMarcup = createImagesMarcup(images);
 
-  gallery.lastElementChild.style.marginBottom = '0px';
-  gallery.lastElementChild.style.marginLeft = '400px';
-  gallery.firstElementChild.style.marginLeft = '0px';
+gallery.insertAdjacentHTML('beforeend', imagesMarcup);
+
+function createImagesMarcup(images) {
+return images
+  .map(({ url, alt }) => {
+  return `
+  <li class="image-element">
+    <img class="image" src="${url}" alt="${alt}">
+  </li>
+  `
+  })
+  .join('');
+};
+
+
+
+// console.log(createImagesMarcup(images))
